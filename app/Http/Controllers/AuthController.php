@@ -22,12 +22,10 @@ class AuthController extends Controller
 
         if (Auth::attempt($email,$password)) {
             $request->session()->regenerate();
-            return redirect('/dashboard');
+            return redirect('/dashboard')->with('success', 'Task was successful!');
         }
 
-        return back()->withErrors([
-            'email' => 'The provided credentials do not match our records.' ,
-            ])->onlyInput('email');
+        return back()->with('error','Invalid credentials. Check the email address and password entered');
             
 
     }
